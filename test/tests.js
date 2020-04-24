@@ -341,6 +341,35 @@ describe("Troublesome parsing", function() {
             { code: "L", relative: false, end: { x: 3, y: 4 }}
         ]);
     });
+    it("H with 0 should not be ignored", function() {
+        expect(parse("H0")).to.eql([
+            { code: "H", relative: false, value: 0 },
+        ]);
+    });
+    it("V with 0 should not be ignored", function() {
+        expect(parse("V0")).to.eql([
+            { code: "V", relative: false, value: 0 },
+        ]);
+    });
+    it("h with 0 should not be ignored", function() {
+        expect(parse("h0")).to.eql([
+            { code: "h", relative: true, value: 0 },
+        ]);
+    });
+    it("v with 0 should not be ignored", function() {
+        expect(parse("v0")).to.eql([
+            { code: "v", relative: true, value: 0 },
+        ]);
+    });
+    it("RodionNikolaev's test to not ignore H0", function() {
+        expect(parse("M0,0 H124.659 V71.565 H0 Z")).to.eql([
+            { "code": "M", "end": { "x": 0,"y": 0 }, "relative": false },
+            { "code": "H", "relative": false, "value": 124.659 },
+            { "code": "V", "relative": false, "value": 71.565 },
+            { "code": "H", "relative": false, "value": 0 },
+            { "code": "Z" }
+        ]);
+    });
 });
 
 });
