@@ -33,7 +33,9 @@ return function parse(d) {
     };
     var matchers = {
         "number": function(must) {
-            return +get("number", must);
+            var x = get("number", must);
+            if(x === null) return null;
+            return +x;
         },
         "coordinate pair": function(must) {
             var x = get("number", must);
@@ -158,7 +160,7 @@ return function parse(d) {
         var sequence = [];
         var matched;
         var must = true;
-        while (matched = matchers[what](must)) {
+        while ((matched = matchers[what](must)) !== null) {
             sequence.push(matched);
             must = !!get("comma");
         }
